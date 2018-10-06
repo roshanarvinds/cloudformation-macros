@@ -1,0 +1,20 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Transform:
+  - DynamicMappingMacro
+
+Mappings:
+  ABCD:
+    dynamo-db=us-east-1
+  CMSD:
+    dynamo-db=us-east-2
+
+Resources:
+  waitconditionhandlename:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+DynamoDBMapper:
+  TableName:
+    macro_table
+  AttributeValues:
+    - KeyName
