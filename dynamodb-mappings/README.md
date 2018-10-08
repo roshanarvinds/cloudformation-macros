@@ -4,7 +4,7 @@ Add Key-Pairs from your DynamoDB to CloudFormation Mappings section
 
 <h3> Basic Usage </h3>
 
-Specify the <code>TableName</code> and the <code>AttributeValues</code> that you wish to include as a separate section under the title <code>DynamoDBMapper</code>. Within the <code>Mappings</code> section, specify the Key Name in the format <code>dynamo-db=KEY-NAME</code>, so that the Macro replaces the section with the Key-Value pairs.
+Specify the <code>TableName</code> and the <code>AttributeValues</code> that you wish to include as a separate section under the title <code>DynamoDBMapper</code>. Within the <code>Mappings</code> section, specify the Key Name in the format <code>dynamo-db=PARTITION_KEY</code>, so that the Macro replaces the section with the Key-Value pairs.
 
 <h3> Available Options </h3>
 
