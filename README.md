@@ -4,7 +4,7 @@ AWS announced a new <a href = "https://aws.amazon.com/about-aws/whats-new/2018/0
 
 There are two steps in the process of modifying templates using macros: A) Creating the Macro, and B) Using the Macro to  proces your templates. 
 
-You can read more about how they work in the referenced AWS docs <a href = "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html">[1]</a>.
+You can read more about how they work in the referenced AWS  <a href = "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html">docs</a>.
 
 This repo is a small collection of Macros I've developed to add useful features to CloudFormation templates, for example, fetching Key-Value pairs from a DynamoDB and adding them to Mappings.
 
