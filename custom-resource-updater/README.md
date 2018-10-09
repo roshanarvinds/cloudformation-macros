@@ -4,7 +4,7 @@ A macro to ensure that CloudFormation Custom Resources are updated at every stac
 
 <h3> Basic Usage </h3>
 
-Specify the Logical IDs of the Custom Resources that you wish to update at every stack update as a separate section under the title <code>ResourcesToUpdate</code>. If no <code>ResourcesToUpdate</code> are specified, then all Custom Resources are updated.
+Specify the Logical IDs of the Custom Resources that you wish to update at every stack update as a separate section under the title <code>ResourcesToUpdate</code>. If the <code>ResourcesToUpdate</code> section is not specified, then all Custom Resources are updated.
 
 <h3> How it works </h3>
 
