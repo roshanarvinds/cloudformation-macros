@@ -7,7 +7,14 @@ Description: >
   Test Stack for Custom Resource Updater
 
 Resources:
-  customresource_name:
+  customresource:
     Type: AWS::CloudFormation::CustomResource
     Properties:
       ServiceToken: arn:aws:lambda:us-east-1:135637915716:function:custom-resource-demo     # require
+  customresource2:
+    Type: AWS::CloudFormation::CustomResource
+    Properties:
+      ServiceToken: arn:aws:lambda:us-east-1:135637915716:function:custom-resource-demo
+
+ResourcesToUpdate:
+  - customresource

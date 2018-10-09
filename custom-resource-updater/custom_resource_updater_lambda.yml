@@ -33,10 +33,9 @@ Resources:
 
                   def iterate(Resources, resource_list=[]):
                       for Resource in Resources:
-                          if re.match(Resource["Type"], "Custom:*") or Resource["Type"] == "AWS::CloudFormation::CustomResource":
-                              Resource["Properties"]["DummyProperty"] = str(uuid.uuid4())
+                          if re.match(Resources[Resource]["Type"], "Custom:*") or Resources[Resource]["Type"] == "AWS::CloudFormation::CustomResource":
+                              Resources[Resource]["Properties"]["DummyProperty"] = str(uuid.uuid4())
                   def lambda_handler(event, context):
-                      client = boto3.client('dynamodb')
                       stack_template = event["fragment"]
                       resource_list = []
                       if "ResourcesToUpdate" in stack_template:
@@ -51,6 +50,7 @@ Resources:
                           "fragment": stack_template
                       }
                       return macro_response
+
 
             Handler: index.lambda_handler
             Runtime: python3.6
