@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+    MacroExecutionRole:
+        Type: AWS::IAM::Role
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Effect: Allow
+                      Principal:
+                        Service: [lambda.amazonaws.com]
+                      Action: ['sts:AssumeRole']
+            Path: /
+            Policies:
+                - PolicyName: CustomResourceUpdater
+                  PolicyDocument:
+                    Version: 2012-10-17
+                    Statement:
+                        - Effect: Allow
+                          Action:
+                            - logs:CreateLogGroup
+                            - logs:CreateLogStream
+                            - logs:PutLogEvents
+                          Resource: arn:aws:logs:*:*:*
+
+    MacroFunction:
+        Type: AWS::Lambda::Function
+        Properties:
+            Code:
+                ZipFile: |
+                  import re
+                  import uuid
+
+                  def iterate(Resources, resource_list=[]):
+                      for Resource in Resources:
+                          if re.match(Resource["Type"], "Custom:*") or Resource["Type"] == "AWS::CloudFormation::CustomResource":
+                              Resource["Properties"]["DummyProperty"] = str(uuid.uuid4())
+                  def lambda_handler(event, context):
+                      client = boto3.client('dynamodb')
+                      stack_template = event["fragment"]
+                      resource_list = []
+                      if "ResourcesToUpdate" in stack_template:
+                          resource_list = stack_template["ResourcesToUpdate"]
+                          iterate(stack_template["Resources"], resource_list)
+                      else:
+                          iterate(stack_template["Resources"])
+
+                      macro_response = {
+                          "requestId": event["requestId"],
+                          "status": "success",
+                          "fragment": stack_template
+                      }
+                      return macro_response
+
+            Handler: index.lambda_handler
+            Runtime: python3.6
+            Role: !GetAtt MacroExecutionRole.Arn
+            FunctionName: custom-resource-updater-macro
+    MacroFunctionPermission:
+        Type: AWS::Lambda::Permission
+        Properties:
+            Action: 'lambda:InvokeFunction'
+            FunctionName: !GetAtt MacroFunction.Arn
+            Principal: !Sub '${AWS::AccountId}'
+
+    Macro:
+        Type: AWS::CloudFormation::Macro
+        Properties:
+            Name: CustomResourceUpdaterMacro
+            Description: Update Custom Resource for every stack update
+            FunctionName: !GetAtt MacroFunction.Arn
+
+Outputs:
+    MacroFunctionArn:
+        Value: !GetAtt MacroFunction.Arn
