@@ -10,11 +10,11 @@ Resources:
   customresource:
     Type: AWS::CloudFormation::CustomResource
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-1:135637915716:function:custom-resource-demo     # require
+      ServiceToken: arn:aws:lambda:REGION:ACCT_ID:function:custom-resource-demo    
   customresource2:
     Type: AWS::CloudFormation::CustomResource
     Properties:
-      ServiceToken: arn:aws:lambda:us-east-1:135637915716:function:custom-resource-demo
+      ServiceToken: arn:aws:lambda:REGION:ACCT_ID:function:custom-resource-demo
 
 ResourcesToUpdate:
   - customresource
