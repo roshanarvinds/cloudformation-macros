@@ -23,6 +23,3 @@ You can specify the composite primary keys as follows : <code>dynamo-db=PARTITIO
 <h3> Author </h3>
 
 Roshan Arvind Sivakumar
-
-Cloud Support Associate<br>
-Amazon Web Services
