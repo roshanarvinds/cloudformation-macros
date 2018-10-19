@@ -13,6 +13,3 @@ When the ChangeSet is created, the Lambda function is invoked, and it appends a 
 <h3> Author </h3>
 
 Roshan Arvind Sivakumar
-
-Cloud Support Associate<br>
-Amazon Web Services
